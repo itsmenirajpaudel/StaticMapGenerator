@@ -163,6 +163,90 @@ class SidebarForm extends React.Component {
                             id="zoom"
                         />
                     </div>
+
+                    <div className="block">
+                        <label className="pure-u-1">
+                            Marker1: Kathmandu, Nepal
+                        </label>
+                        <div className="pure-control-group">
+                            <input
+                                className="pure-u-9-10"
+                                type="text"
+                                placeholder="address or coordinates"
+                            />
+                        </div>
+                        <div className="">
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="number" />
+                            </div>
+
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="color" />
+                            </div>
+
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="size" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="block">
+                        <label className="pure-u-1">
+                            Marker1: Kathmandu, Nepal
+                        </label>
+                        <div className="pure-control-group">
+                            <input
+                                className="pure-u-9-10"
+                                type="text"
+                                placeholder="address or coordinates"
+                            />
+                        </div>
+                        <div className="">
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="number" />
+                            </div>
+
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="color" />
+                            </div>
+
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="size" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="block">
+                        <label className="pure-u-1">
+                            Marker1: Kathmandu, Nepal
+                        </label>
+                        <div className="pure-control-group">
+                            <input
+                                className="pure-u-9-10"
+                                type="text"
+                                placeholder="address or coordinates"
+                            />
+                        </div>
+                        <div className="">
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="number" />
+                            </div>
+
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="color" />
+                            </div>
+
+                            <div className="pure-control-group pure-u-1-5">
+                                <input type="text" placeholder="size" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pure-control-group pure-u-1">
+                        <button class="pure-button addmarker">
+                            Add a marker
+                        </button>
+                    </div>
                 </fieldset>
             </form>
         );
