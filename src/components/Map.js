@@ -14,10 +14,14 @@ class Map extends React.Component {
                 center: "Kathmandu,+Nepal",
                 zoom: 13,
                 scale: 1,
-                key: ""
-            }
+                key: "",
+                autoscale: false
+            },
+            invalidKey: true
         };
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleImageError = this.handleImageError.bind(this);
+        this.handleImageLoad = this.handleImageLoad.bind(this);
         this.imageInfo = {
             baseUrl:
                 "https://maps.googleapis.com/maps/api/staticmap?visual_refresh=true"
@@ -38,9 +42,14 @@ class Map extends React.Component {
             model.height;
         url += "&maptype=" + model.maptype;
         url += "&format=" + model.format;
-        url += "&center=" + model.center;
-        url += "&zoom=" + model.zoom;
-        url += "&scale=" + model.scale;
+
+        if (!model.autoscale) {
+            url += "&center=" + model.center;
+            url += "&zoom=" + model.zoom;
+            url += "&scale=" + model.scale;
+        } else {
+            url += "&autoscale=true";
+        }
         if (model.key) url += "&key=" + model.key;
         return url;
     }
@@ -51,12 +60,33 @@ class Map extends React.Component {
         if (field === "scale") {
             value = event.target.checked ? 2 : 1;
         }
+
+        if (field === "autoscale") {
+            value = event.target.checked ? true : false;
+        }
+
         this.setState(prevState => {
             const obj = prevState.model;
             obj[field] = value;
             this.imageInfo.url = this.generateNew(obj);
             return {
                 model: obj
+            };
+        });
+    }
+
+    handleImageError() {
+        this.setState(function(prevState) {
+            return {
+                invalidKey: true
+            };
+        });
+    }
+
+    handleImageLoad() {
+        this.setState(function(prevState) {
+            return {
+                invalidKey: false
             };
         });
     }
@@ -68,7 +98,13 @@ class Map extends React.Component {
                     onInputChange={this.onInputChange}
                     model={this.state.model}
                 />
-                <Content apiKey={this.state.model.key} model={this.imageInfo} />
+                <Content
+                    apiKey={this.state.model.key}
+                    onImageError={this.handleImageError}
+                    onImageLoad={this.handleImageLoad}
+                    model={this.imageInfo}
+                    invalidKey={this.state.invalidKey}
+                />
             </div>
         );
     }

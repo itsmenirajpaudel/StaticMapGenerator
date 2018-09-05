@@ -6,13 +6,24 @@ import { Footer } from "./contents/Footer";
 class Content extends React.Component {
     render() {
         let elem;
-        if (this.props.apiKey) elem = <CodeContent model={this.props.model} />;
+        if (this.props.apiKey)
+            elem = (
+                <CodeContent
+                    invalidKey={this.props.invalidKey}
+                    model={this.props.model}
+                />
+            );
         else elem = "";
 
         return (
             <div className="content pure-u-2-3 pure-u-md-2-3">
                 <div>
-                    <MapContent model={this.props.model} />
+                    <MapContent
+                        onImageError={this.props.onImageError}
+                        model={this.props.model}
+                        invalidKey={this.props.invalidKey}
+                        onImageLoad={this.props.onImageLoad}
+                    />
                     {elem}
                     <Footer />
                 </div>

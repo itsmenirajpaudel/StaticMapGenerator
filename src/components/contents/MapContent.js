@@ -5,7 +5,12 @@ const MapContent = function(props) {
         <div className="posts">
             <h1 className="content-subhead">Map Preview</h1>
             <section className="post">
-                <img src={props.model.url} alt="api key is required" />
+                <img
+                    onError={props.onImageError}
+                    onLoad={props.onImageLoad}
+                    src={props.model.url}
+                    alt="api key is either empty or invalid"
+                />
             </section>
         </div>
     );

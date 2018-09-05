@@ -4,7 +4,8 @@
     }
 }
 
-.pure-control-group input {
+.pure-control-group input,
+select {
     color: #333;
 }
 

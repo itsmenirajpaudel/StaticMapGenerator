@@ -30,8 +30,10 @@ class SidebarForm extends React.Component {
             format,
             center,
             scale,
-            key
+            key,
+            autoscale
         } = this.props.model;
+
         const onInputChange = this.props.onInputChange;
         return (
             <form className="pure-form" style={{ paddingLeft: "50px" }}>
@@ -92,11 +94,10 @@ class SidebarForm extends React.Component {
                         <label className="pure-u-2-5" htmlFor="maptype">
                             Map Type
                         </label>
-
                         <select
                             className="pure-u-1-2"
                             id="maptype"
-                            value={maptype}
+                            defaultValue={maptype}
                             onChange={onInputChange}
                         >
                             {mapTypes.map(mapType => (
@@ -127,13 +128,15 @@ class SidebarForm extends React.Component {
                     </div>
 
                     <div className="pure-control-group pure-u-1">
-                        <label className="pure-u-2-5" htmlFor="autoadjust">
+                        <label className="pure-u-2-5" htmlFor="autoscale">
                             Auto Adjust?
                         </label>
                         <input
                             className="pure-u-1-2"
-                            id="autoadjust"
+                            id="autoscale"
                             type="checkbox"
+                            checked={autoscale === true}
+                            onChange={onInputChange}
                         />
                     </div>
 
@@ -242,8 +245,8 @@ class SidebarForm extends React.Component {
                         </div>
                     </div>
 
-                    <div class="pure-control-group pure-u-1">
-                        <button class="pure-button addmarker">
+                    <div className="pure-control-group pure-u-1">
+                        <button className="pure-button addmarker">
                             Add a marker
                         </button>
                     </div>
