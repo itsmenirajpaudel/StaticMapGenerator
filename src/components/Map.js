@@ -1,6 +1,7 @@
 import React from "react";
 import { Sidebar } from "./Sidebar";
 import { Content } from "./Content";
+import { MarkerItem } from "./sidebar/MarkerItem";
 
 class Map extends React.Component {
     constructor(props) {
@@ -17,11 +18,18 @@ class Map extends React.Component {
                 key: "",
                 autoscale: false
             },
-            invalidKey: true
+            invalidKey: false,
+            markerItems: [],
+            marker: {
+                size: 0,
+                id: null
+            }
         };
         this.onInputChange = this.onInputChange.bind(this);
         this.handleImageError = this.handleImageError.bind(this);
         this.handleImageLoad = this.handleImageLoad.bind(this);
+        this.onAddMarker = this.onAddMarker.bind(this);
+        this.onDeleteMarker = this.onDeleteMarker.bind(this);
         this.imageInfo = {
             baseUrl:
                 "https://maps.googleapis.com/maps/api/staticmap?visual_refresh=true"
@@ -31,6 +39,7 @@ class Map extends React.Component {
             "https://www.google.com/maps/place/Kathmandu,+Nepal/";
         this.imageInfo.directionUrl =
             "https://www.google.com/maps/dir//Kathmandu,+Nepal/";
+        this.imageInfo.center = this.state.model.center;
     }
 
     generateNew(model) {
@@ -51,32 +60,64 @@ class Map extends React.Component {
             url += "&autoscale=true";
         }
         if (model.key) url += "&key=" + model.key;
+        if (model.zoom) url += "&zoom=" + model.zoom;
         return url;
     }
 
     onInputChange(event) {
         const { id: field } = event.target;
         let { value } = event.target;
-        if (field === "scale") {
-            value = event.target.checked ? 2 : 1;
-        }
-
-        if (field === "autoscale") {
-            value = event.target.checked ? true : false;
-        }
-
+        if (field === "scale") value = event.target.checked ? 2 : 1;
+        if (field === "autoscale") value = event.target.checked ? true : false;
         this.setState(prevState => {
             const obj = prevState.model;
             obj[field] = value;
             this.imageInfo.url = this.generateNew(obj);
+            if (field === "center")
+                this.imageInfo.center = this.state.model.center;
             return {
-                model: obj
+                model: obj,
+                invalidKey: false
             };
         });
     }
 
-    handleImageError() {
+    onAddMarker() {
+        const uniqueKey =
+            Date.now().toString(36) +
+            Math.random()
+                .toString(36)
+                .substr(2, 5);
         this.setState(function(prevState) {
+            let { markerItems } = prevState;
+            markerItems.push(
+                <MarkerItem
+                    id={uniqueKey}
+                    key={uniqueKey}
+                    deleteMarker={this.onDeleteMarker}
+                />
+            );
+            return {
+                markerItems: markerItems
+            };
+        });
+    }
+
+    onDeleteMarker(event) {
+        const { id } = event.target;
+        this.setState(function(prevState) {
+            const prevMarkerItems = prevState.markerItems;
+            let newMarkerItems = prevMarkerItems.filter(item => {
+                return item.props.id !== id;
+            });
+            return {
+                markerItems: newMarkerItems
+            };
+        });
+    }
+
+    handleImageError(event) {
+        this.setState(function() {
             return {
                 invalidKey: true
             };
@@ -84,7 +125,7 @@ class Map extends React.Component {
     }
 
     handleImageLoad() {
-        this.setState(function(prevState) {
+        this.setState(function() {
             return {
                 invalidKey: false
             };
@@ -96,7 +137,10 @@ class Map extends React.Component {
             <div id="layout" className="pure-g">
                 <Sidebar
                     onInputChange={this.onInputChange}
+                    onAddMarker={this.onAddMarker}
                     model={this.state.model}
+                    marker={this.state.marker}
+                    markerItems={this.state.markerItems}
                 />
                 <Content
                     apiKey={this.state.model.key}

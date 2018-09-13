@@ -1,4 +1,5 @@
 import React from "react";
+import { MarkerForm } from "./MarkerForm";
 
 const mapTypes = [
     {
@@ -31,10 +32,11 @@ class SidebarForm extends React.Component {
             center,
             scale,
             key,
-            autoscale
+            autoscale,
+            zoom
         } = this.props.model;
 
-        const onInputChange = this.props.onInputChange;
+        const { onInputChange, onAddMarker, markerItems } = this.props;
         return (
             <form className="pure-form" style={{ paddingLeft: "50px" }}>
                 <fieldset>
@@ -73,6 +75,8 @@ class SidebarForm extends React.Component {
                             className="pure-u-1-2"
                             id="width"
                             type="number"
+                            min="100"
+                            max="1000"
                             onChange={onInputChange}
                         />
                     </div>
@@ -87,6 +91,8 @@ class SidebarForm extends React.Component {
                             onChange={onInputChange}
                             id="height"
                             type="number"
+                            min="100"
+                            max="1000"
                         />
                     </div>
 
@@ -160,14 +166,16 @@ class SidebarForm extends React.Component {
                         </label>
                         <input
                             type="range"
-                            min="1"
-                            max="100"
                             className="slider pure-u-1-2"
+                            onChange={onInputChange}
                             id="zoom"
+                            value={zoom}
+                            min="5"
+                            max="18"
                         />
                     </div>
 
-                    <div className="block">
+                    {/* <div className="block">
                         <label className="pure-u-1">
                             Marker1: Kathmandu, Nepal
                         </label>
@@ -191,62 +199,16 @@ class SidebarForm extends React.Component {
                                 <input type="text" placeholder="size" />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="block">
-                        <label className="pure-u-1">
-                            Marker1: Kathmandu, Nepal
-                        </label>
-                        <div className="pure-control-group">
-                            <input
-                                className="pure-u-9-10"
-                                type="text"
-                                placeholder="address or coordinates"
-                            />
-                        </div>
-                        <div className="">
-                            <div className="pure-control-group pure-u-1-5">
-                                <input type="text" placeholder="number" />
-                            </div>
-
-                            <div className="pure-control-group pure-u-1-5">
-                                <input type="text" placeholder="color" />
-                            </div>
-
-                            <div className="pure-control-group pure-u-1-5">
-                                <input type="text" placeholder="size" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="block">
-                        <label className="pure-u-1">
-                            Marker1: Kathmandu, Nepal
-                        </label>
-                        <div className="pure-control-group">
-                            <input
-                                className="pure-u-9-10"
-                                type="text"
-                                placeholder="address or coordinates"
-                            />
-                        </div>
-                        <div className="">
-                            <div className="pure-control-group pure-u-1-5">
-                                <input type="text" placeholder="number" />
-                            </div>
-
-                            <div className="pure-control-group pure-u-1-5">
-                                <input type="text" placeholder="color" />
-                            </div>
-
-                            <div className="pure-control-group pure-u-1-5">
-                                <input type="text" placeholder="size" />
-                            </div>
-                        </div>
-                    </div>
+                    <MarkerForm markerItems={markerItems} />
 
                     <div className="pure-control-group pure-u-1">
-                        <button className="pure-button addmarker">
+                        <button
+                            type="button"
+                            onClick={onAddMarker}
+                            className="pure-button addmarker"
+                        >
                             Add a marker
                         </button>
                     </div>

@@ -6,14 +6,12 @@ import { Footer } from "./contents/Footer";
 class Content extends React.Component {
     render() {
         let elem;
-        if (this.props.apiKey)
-            elem = (
-                <CodeContent
-                    invalidKey={this.props.invalidKey}
-                    model={this.props.model}
-                />
-            );
-        else elem = "";
+        elem = (
+            <CodeContent
+                invalidKey={this.props.invalidKey}
+                model={this.props.model}
+            />
+        );
 
         return (
             <div className="content pure-u-2-3 pure-u-md-2-3">

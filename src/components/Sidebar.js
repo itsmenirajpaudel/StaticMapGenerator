@@ -8,6 +8,8 @@ const Sidebar = function(props) {
             <SidebarHeader />
             <SidebarForm
                 onInputChange={props.onInputChange}
+                onAddMarker={props.onAddMarker}
+                markerItems={props.markerItems}
                 model={props.model}
             />
         </div>

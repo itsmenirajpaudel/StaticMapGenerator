@@ -19,8 +19,9 @@ const CodeContent = function(props) {
                         <h4> HTML </h4>
                         <pre className="code">
                             &lt;img width="600" src="
-                            {props.model.url}" alt="Google Map of Albany,
-                            NY"&gt;
+                            {props.model.url}" alt=
+                            {"Google Map of " + props.model.center}
+                            &gt;
                         </pre>
                     </div>
 
@@ -30,8 +31,9 @@ const CodeContent = function(props) {
                             &lt;a href=
                             {props.model.linkUrl}
                             >&lt;img src="
-                            {props.model.url}" alt="Google Map of Albany,
-                            NY"&gt;&lt;/a&gt;
+                            {props.model.url}" alt=
+                            {"Google Map of " + props.model.center}
+                            &gt;&lt;/a&gt;
                         </pre>
                     </div>
 
@@ -41,8 +43,9 @@ const CodeContent = function(props) {
                             &lt;a href=
                             {props.model.directionUrl}
                             >&lt;img src="
-                            {props.model.url}" alt="Google Map of Albany,
-                            NY"&gt;&lt;/a&gt;
+                            {props.model.url}" alt=
+                            {"Google Map of " + props.model.center}
+                            &gt;&lt;/a&gt;
                         </pre>
                     </div>
 
