@@ -54,5 +54,3 @@ Contributions to the project are welcome! If you have suggestions, bug reports, 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT), which means it is free for any use cases, including commercial use, modification, distribution, and private use, without any restrictions.
 
-## Acknowledgements
-[Optional section to acknowledge any individuals, organizations, or resources that contributed to the project.]
